@@ -43,3 +43,14 @@ describe("storage", () => {
     expect(() => saveTodos(s, [])).not.toThrow();
   });
 });
+
+describe("isTodo hardening", () => {
+  it("rejects empty ids and blank text", async () => {
+    const { isTodo } = await import("@/lib/storage");
+    const ok = createTodo("ok");
+    expect(isTodo(ok)).toBe(true);
+    expect(isTodo({ ...ok, text: "   " })).toBe(false);
+    expect(isTodo({ ...ok, text: "" })).toBe(false);
+    expect(isTodo({ ...ok, id: "" })).toBe(false);
+  });
+});

@@ -9,7 +9,9 @@ export function isTodo(value: unknown): value is Todo {
   const v = value as Record<string, unknown>;
   return (
     typeof v.id === "string" &&
+    v.id.length > 0 &&
     typeof v.text === "string" &&
+    v.text.trim().length > 0 &&
     typeof v.completed === "boolean" &&
     typeof v.priority === "string" &&
     (PRIORITIES as readonly string[]).includes(v.priority) &&
