@@ -11,7 +11,7 @@ repository for generating real pull-request activity.
 - Mark done, edit in place (double-click), clear completed
 - Undo the last deleted todo
 - See open todos broken down by priority
-- Filter (all / active / completed) and search (press `/` to focus search, `n` for a new todo)
+- Filter (all / active / completed / overdue) and search (press `/` to focus search, `n` for a new todo)
 - Persisted in `localStorage`
 - Export as JSON or CSV, import from JSON
 
