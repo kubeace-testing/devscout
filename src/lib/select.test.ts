@@ -28,3 +28,15 @@ describe("selectVisibleTodos", () => {
     expect(all).toEqual(copy);
   });
 });
+
+import { isDefaultView } from "@/lib/select";
+
+describe("isDefaultView", () => {
+  it("is true only for all / added / empty query", () => {
+    expect(isDefaultView({ filter: "all", sort: "added", query: "" })).toBe(true);
+    expect(isDefaultView({ filter: "all", sort: "added", query: "   " })).toBe(true);
+    expect(isDefaultView({ filter: "active", sort: "added", query: "" })).toBe(false);
+    expect(isDefaultView({ filter: "all", sort: "alpha", query: "" })).toBe(false);
+    expect(isDefaultView({ filter: "all", sort: "added", query: "milk" })).toBe(false);
+  });
+});
