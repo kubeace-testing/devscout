@@ -10,6 +10,7 @@ repository for generating real pull-request activity.
 - Mark done, edit in place (double-click), clear completed
 - Filter (all / active / completed) and search (press `/` to focus)
 - Persisted in `localStorage`
+- Export as JSON or CSV, import from JSON
 
 ## Scripts
 
