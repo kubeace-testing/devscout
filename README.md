@@ -1,7 +1,7 @@
-# DevGlimpse Todo
+# DevScout
 
-A small Next.js (TypeScript + Tailwind) todo app used to generate real GitHub
-activity for [DevGlimpse](https://devglimpse.com) to measure.
+A small Next.js (TypeScript + Tailwind) todo app. It also serves as a sandbox
+repository for generating real pull-request activity.
 
 ## Features
 
