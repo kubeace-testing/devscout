@@ -4,6 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { useHotkey } from "@/hooks/useHotkey";
 import { usePersistedTodos } from "@/hooks/usePersistedTodos";
 import SearchBox from "@/components/SearchBox";
+import PriorityBreakdown from "@/components/PriorityBreakdown";
 import ItemsLeft from "@/components/ItemsLeft";
 import ImportExport from "@/components/ImportExport";
 import BulkActions from "@/components/BulkActions";
@@ -16,6 +17,7 @@ import { selectVisibleTodos } from "@/lib/select";
 import { mergeTodos } from "@/lib/transfer";
 import {
   clearCompleted,
+  countByPriority,
   createTodo,
   deleteTodo,
   emptyMessage,
@@ -74,6 +76,7 @@ export default function TodoApp() {
     <div className="mt-8 space-y-4">
       <AddTodoForm onAdd={addTodo} />
       <ProgressSummary stats={stats} />
+      <PriorityBreakdown counts={countByPriority(todos)} />
       <SearchBox value={query} onChange={setQuery} inputRef={searchRef} />
       <div className="flex flex-wrap items-center justify-between gap-2">
         <FilterBar value={filter} onChange={setFilter} />
