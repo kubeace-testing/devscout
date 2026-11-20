@@ -13,7 +13,7 @@ export default function SearchBox({ value, onChange, inputRef }: Props) {
       type="search"
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      placeholder="Search todos… (press / to focus)"
+      placeholder="Search todos and notes… (press / to focus)"
       aria-label="Search todos"
       className="w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 outline-none focus:border-blue-500"
     />
