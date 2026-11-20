@@ -9,7 +9,9 @@ export function isTodo(value: unknown): value is Todo {
   const v = value as Record<string, unknown>;
   return (
     typeof v.id === "string" &&
+    v.id.length > 0 &&
     typeof v.text === "string" &&
+    v.text.trim().length > 0 &&
     typeof v.completed === "boolean" &&
     typeof v.priority === "string" &&
     (PRIORITIES as readonly string[]).includes(v.priority) &&
@@ -22,7 +24,13 @@ export function loadTodos(storage: StorageLike): Todo[] {
     const raw = storage.getItem(STORAGE_KEY);
     if (!raw) return [];
     const parsed: unknown = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.filter(isTodo) : [];
+    if (!Array.isArray(parsed)) return [];
+    const seen = new Set<string>();
+    return parsed.filter((t): t is Todo => {
+      if (!isTodo(t) || seen.has(t.id)) return false;
+      seen.add(t.id);
+      return true;
+    });
   } catch {
     return [];
   }

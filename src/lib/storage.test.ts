@@ -43,3 +43,22 @@ describe("storage", () => {
     expect(() => saveTodos(s, [])).not.toThrow();
   });
 });
+
+describe("isTodo hardening", () => {
+  it("rejects empty ids and blank text", async () => {
+    const { isTodo } = await import("@/lib/storage");
+    const ok = createTodo("ok");
+    expect(isTodo(ok)).toBe(true);
+    expect(isTodo({ ...ok, text: "   " })).toBe(false);
+    expect(isTodo({ ...ok, text: "" })).toBe(false);
+    expect(isTodo({ ...ok, id: "" })).toBe(false);
+  });
+});
+
+describe("loadTodos duplicates", () => {
+  it("ignores duplicate ids in stored data", () => {
+    const a = createTodo("a");
+    const s = fakeStorage({ [STORAGE_KEY]: JSON.stringify([a, { ...a, text: "dup" }]) });
+    expect(loadTodos(s)).toEqual([a]);
+  });
+});

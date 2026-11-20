@@ -21,7 +21,12 @@ export function parseTodos(json: string): ParseResult {
   if (!Array.isArray(list)) {
     return { ok: false, error: "No todo list found in the file." };
   }
-  const todos = list.filter(isTodo);
+  const seen = new Set<string>();
+  const todos = list.filter((t): t is Todo => {
+    if (!isTodo(t) || seen.has(t.id)) return false;
+    seen.add(t.id);
+    return true;
+  });
   return { ok: true, todos, skipped: list.length - todos.length };
 }
 
