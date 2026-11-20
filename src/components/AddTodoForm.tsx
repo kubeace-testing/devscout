@@ -30,7 +30,7 @@ export default function AddTodoForm({ onAdd, inputRef }: Props) {
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="What needs to be done?"
+        placeholder="What needs to be done? (press n)"
         aria-label="New todo"
         className="flex-1 rounded-md border border-gray-300 bg-transparent px-3 py-2 outline-none focus:border-blue-500"
       />
