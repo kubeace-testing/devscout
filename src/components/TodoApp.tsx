@@ -5,6 +5,7 @@ import { useHotkey } from "@/hooks/useHotkey";
 import { usePersistedTodos } from "@/hooks/usePersistedTodos";
 import SearchBox from "@/components/SearchBox";
 import PriorityBreakdown from "@/components/PriorityBreakdown";
+import UndoBar from "@/components/UndoBar";
 import ItemsLeft from "@/components/ItemsLeft";
 import ImportExport from "@/components/ImportExport";
 import BulkActions from "@/components/BulkActions";
@@ -19,13 +20,15 @@ import {
   clearCompleted,
   countByPriority,
   createTodo,
-  deleteTodo,
   emptyMessage,
   getStats,
   setAllCompleted,
   toggleTodo,
+  removeTodo,
+  restoreTodo,
   updateTodoText,
   type Filter,
+  type DeletedTodo,
   type Priority,
   type SortKey,
   type Todo,
@@ -36,6 +39,7 @@ export default function TodoApp() {
   const [filter, setFilter] = useState<Filter>("all");
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<SortKey>("added");
+  const [lastDeleted, setLastDeleted] = useState<DeletedTodo | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   const focusSearch = useCallback(() => searchRef.current?.focus(), []);
   useHotkey("/", focusSearch);
@@ -53,7 +57,15 @@ export default function TodoApp() {
   }
 
   function remove(id: string) {
-    setTodos((prev) => deleteTodo(prev, id));
+    const { todos: next, deleted } = removeTodo(todos, id);
+    setTodos(next);
+    setLastDeleted(deleted);
+  }
+
+  function undoDelete() {
+    if (!lastDeleted) return;
+    setTodos((prev) => restoreTodo(prev, lastDeleted));
+    setLastDeleted(null);
   }
 
   function markAll(completed: boolean) {
@@ -84,6 +96,13 @@ export default function TodoApp() {
       </div>
       <TodoList todos={visible} emptyMessage={emptyMessage(todos.length, filter, query)} onToggle={toggle} onEdit={edit} onDelete={remove} />
       <ItemsLeft total={stats.total} active={stats.active} />
+      {lastDeleted && (
+        <UndoBar
+          text={lastDeleted.todo.text}
+          onUndo={undoDelete}
+          onDismiss={() => setLastDeleted(null)}
+        />
+      )}
       <BulkActions total={stats.total} completed={stats.completed} onMarkAll={markAll} />
       {doneCount > 0 && (
         <button
