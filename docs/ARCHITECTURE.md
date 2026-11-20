@@ -19,3 +19,8 @@ The app is a single client-side Next.js page. All state lives in the browser.
 - **Pure, immutable helpers.** Every function in `src/lib` returns new data and is unit tested.
 - **Validate at the boundary.** Anything read from `localStorage` or an imported file passes through `isTodo`.
 - **Local dates.** Due dates are `YYYY-MM-DD` strings compared against the *local* calendar date (`toLocalISODate`), never UTC.
+
+## Decision records
+
+- [0001: Compare due dates against the local calendar date](adr/0001-local-dates.md)
+- [0002: Keep logic in pure `src/lib` functions and validate all stored data](adr/0002-pure-lib-and-validated-storage.md)
