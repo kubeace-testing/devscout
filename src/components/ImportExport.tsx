@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { toCsv } from "@/lib/csv";
 import { parseTodos, serializeTodos } from "@/lib/transfer";
 import type { Todo } from "@/lib/todos";
 
@@ -13,15 +14,17 @@ export default function ImportExport({ todos, onImport }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [message, setMessage] = useState<string | null>(null);
 
-  function download() {
-    const blob = new Blob([serializeTodos(todos)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
+  function save(content: string, type: string, filename: string) {
+    const url = URL.createObjectURL(new Blob([content], { type }));
     const a = document.createElement("a");
     a.href = url;
-    a.download = "todos.json";
+    a.download = filename;
     a.click();
     URL.revokeObjectURL(url);
   }
+
+  const download = () => save(serializeTodos(todos), "application/json", "todos.json");
+  const downloadCsv = () => save(toCsv(todos), "text/csv", "todos.csv");
 
   async function handleFile(file: File) {
     const result = parseTodos(await file.text());
@@ -39,7 +42,10 @@ export default function ImportExport({ todos, onImport }: Props) {
   return (
     <div className="flex flex-wrap items-center gap-3 text-sm">
       <button type="button" onClick={download} className="text-blue-600 hover:underline">
-        Export
+        Export JSON
+      </button>
+      <button type="button" onClick={downloadCsv} className="text-blue-600 hover:underline">
+        Export CSV
       </button>
       <button
         type="button"
