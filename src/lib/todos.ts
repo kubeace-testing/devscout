@@ -56,6 +56,26 @@ export function isDueSoon(todo: Todo, today: Date = new Date(), days = 2): boole
   return todo.dueDate <= toLocalISODate(limit);
 }
 
+export function daysUntilDue(todo: Todo, today: Date = new Date()): number | null {
+  if (!todo.dueDate) return null;
+  const [y, m, d] = todo.dueDate.split("-").map(Number);
+  const due = new Date(y, m - 1, d);
+  const start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  return Math.round((due.getTime() - start.getTime()) / 86_400_000);
+}
+
+export function dueLabel(todo: Todo, today: Date = new Date()): string {
+  const days = daysUntilDue(todo, today);
+  if (days === null) return "";
+  if (todo.completed) return `Due ${todo.dueDate}`;
+  const plural = (n: number) => `${n} ${n === 1 ? "day" : "days"}`;
+  if (days < 0) return `Overdue by ${plural(-days)}`;
+  if (days === 0) return "Due today";
+  if (days === 1) return "Due tomorrow";
+  if (days <= 7) return `Due in ${plural(days)}`;
+  return `Due ${todo.dueDate}`;
+}
+
 export function toggleTodo(todos: Todo[], id: string): Todo[] {
   return todos.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t));
 }

@@ -1,6 +1,6 @@
 import EditableText from "@/components/EditableText";
 import PriorityBadge from "@/components/PriorityBadge";
-import { isDueSoon, isOverdue, type Todo } from "@/lib/todos";
+import { dueLabel, isDueSoon, isOverdue, type Todo } from "@/lib/todos";
 
 type Props = {
   todo: Todo;
@@ -31,6 +31,7 @@ export default function TodoItem({ todo, onToggle, onEdit, onDelete }: Props) {
       </div>
       {todo.dueDate && (
         <span
+          title={todo.dueDate}
           className={`text-xs ${
             overdue
               ? "font-semibold text-red-600"
@@ -39,8 +40,7 @@ export default function TodoItem({ todo, onToggle, onEdit, onDelete }: Props) {
                 : "opacity-60"
           }`}
         >
-          {overdue ? "Overdue · " : soon ? "Due soon · " : "Due "}
-          {todo.dueDate}
+          {dueLabel(todo)}
         </span>
       )}
       <PriorityBadge priority={todo.priority} />
