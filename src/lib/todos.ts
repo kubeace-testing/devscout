@@ -150,3 +150,17 @@ export function countByPriority(todos: Todo[]): Record<Priority, number> {
 export function addDaysISO(days: number, from: Date = new Date()): string {
   return toLocalISODate(new Date(from.getFullYear(), from.getMonth(), from.getDate() + days));
 }
+
+export type DeletedTodo = { todo: Todo; index: number };
+
+export function removeTodo(todos: Todo[], id: string): { todos: Todo[]; deleted: DeletedTodo | null } {
+  const index = todos.findIndex((t) => t.id === id);
+  if (index === -1) return { todos, deleted: null };
+  return { todos: todos.filter((t) => t.id !== id), deleted: { todo: todos[index], index } };
+}
+
+export function restoreTodo(todos: Todo[], deleted: DeletedTodo): Todo[] {
+  if (todos.some((t) => t.id === deleted.todo.id)) return todos;
+  const at = Math.min(deleted.index, todos.length);
+  return [...todos.slice(0, at), deleted.todo, ...todos.slice(at)];
+}
