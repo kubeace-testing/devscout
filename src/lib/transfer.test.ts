@@ -35,3 +35,13 @@ describe("mergeTodos", () => {
     expect(mergeTodos([a], [a2, b])).toEqual([a, b]);
   });
 });
+
+describe("parseTodos duplicates and blanks", () => {
+  it("keeps the first of duplicate ids and skips blank todos", () => {
+    const a = createTodo("a");
+    const dup = { ...a, text: "dup" };
+    const blank = { ...createTodo("x"), text: "  " };
+    const res = parseTodos(JSON.stringify([a, dup, blank]));
+    expect(res).toEqual({ ok: true, todos: [a], skipped: 2 });
+  });
+});
