@@ -159,6 +159,10 @@ export function itemsLeftLabel(active: number): string {
   return `${active} ${active === 1 ? "item" : "items"} left`;
 }
 
+export function clearCompletedLabel(completed: number): string {
+  return `Clear completed (${completed})`;
+}
+
 export function countByPriority(todos: Todo[]): Record<Priority, number> {
   const counts: Record<Priority, number> = { low: 0, medium: 0, high: 0 };
   for (const t of todos) {
