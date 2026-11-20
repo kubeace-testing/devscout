@@ -16,6 +16,8 @@ npm run typecheck
 npm test
 ```
 
+While developing, `npm run test:watch` re-runs the affected tests on every save.
+
 ## Workflow
 
 1. Branch from `main`: `feat/<n>-<slug>`, `fix/<n>-<slug>` or `docs/<n>-<slug>`.
