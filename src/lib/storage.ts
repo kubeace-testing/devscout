@@ -24,7 +24,13 @@ export function loadTodos(storage: StorageLike): Todo[] {
     const raw = storage.getItem(STORAGE_KEY);
     if (!raw) return [];
     const parsed: unknown = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.filter(isTodo) : [];
+    if (!Array.isArray(parsed)) return [];
+    const seen = new Set<string>();
+    return parsed.filter((t): t is Todo => {
+      if (!isTodo(t) || seen.has(t.id)) return false;
+      seen.add(t.id);
+      return true;
+    });
   } catch {
     return [];
   }
