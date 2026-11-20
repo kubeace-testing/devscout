@@ -5,6 +5,7 @@ repository for generating real pull-request activity.
 
 ## Features
 
+- Todo text is limited to 200 characters
 - Add todos with a priority (low / medium / high) and an optional due date
 - Quick due-date shortcuts: Today / Tomorrow / Next week
 - Overdue todos are highlighted
