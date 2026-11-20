@@ -25,6 +25,7 @@ repository for generating real pull-request activity.
 | `npm run lint:fix` | ESLint with auto-fix |
 | `npm run typecheck` | TypeScript, no emit |
 | `npm test` | Vitest unit tests |
+| `npm run test:watch` | Vitest in watch mode while developing |
 | `npm run coverage` | Tests with a v8 coverage report for `src/lib` |
 | `npm run build` | Production build |
 
