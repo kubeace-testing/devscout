@@ -60,11 +60,12 @@ export function updateTodoText(todos: Todo[], id: string, text: string): Todo[] 
   return todos.map((t) => (t.id === id ? { ...t, text: trimmed } : t));
 }
 
-export type Filter = "all" | "active" | "completed";
+export type Filter = "all" | "active" | "completed" | "overdue";
 
-export const FILTERS: readonly Filter[] = ["all", "active", "completed"];
+export const FILTERS: readonly Filter[] = ["all", "active", "completed", "overdue"];
 
-export function filterTodos(todos: Todo[], filter: Filter): Todo[] {
+export function filterTodos(todos: Todo[], filter: Filter, today: Date = new Date()): Todo[] {
+  if (filter === "overdue") return todos.filter((t) => isOverdue(t, today));
   if (filter === "active") return todos.filter((t) => !t.completed);
   if (filter === "completed") return todos.filter((t) => t.completed);
   return todos;
@@ -131,6 +132,7 @@ export function emptyMessage(total: number, filter: Filter, query: string): stri
   if (query.trim()) return `No todos match "${query.trim()}".`;
   if (filter === "active") return "Nothing left to do. 🎉";
   if (filter === "completed") return "No completed todos yet.";
+  if (filter === "overdue") return "Nothing is overdue. 👍";
   return "No todos to show.";
 }
 
