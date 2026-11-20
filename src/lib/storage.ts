@@ -15,7 +15,8 @@ export function isTodo(value: unknown): value is Todo {
     typeof v.completed === "boolean" &&
     typeof v.priority === "string" &&
     (PRIORITIES as readonly string[]).includes(v.priority) &&
-    (v.dueDate === null || typeof v.dueDate === "string")
+    (v.dueDate === null || typeof v.dueDate === "string") &&
+    (v.notes === undefined || typeof v.notes === "string")
   );
 }
 
