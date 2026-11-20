@@ -4,6 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { useHotkey } from "@/hooks/useHotkey";
 import { usePersistedView } from "@/hooks/usePersistedView";
 import { usePersistedTodos } from "@/hooks/usePersistedTodos";
+import ResetViewButton from "@/components/ResetViewButton";
 import SearchBox from "@/components/SearchBox";
 import PriorityBreakdown from "@/components/PriorityBreakdown";
 import UndoBar from "@/components/UndoBar";
@@ -15,7 +16,8 @@ import SortSelect from "@/components/SortSelect";
 import FilterBar from "@/components/FilterBar";
 import AddTodoForm from "@/components/AddTodoForm";
 import TodoList from "@/components/TodoList";
-import { selectVisibleTodos } from "@/lib/select";
+import { isDefaultView, selectVisibleTodos } from "@/lib/select";
+import { DEFAULT_VIEW } from "@/lib/viewStorage";
 import { mergeTodos } from "@/lib/transfer";
 import {
   clearCompleted,
@@ -81,6 +83,11 @@ export default function TodoApp() {
     setTodos((prev) => mergeTodos(prev, imported));
   }
 
+  function resetView() {
+    setView(DEFAULT_VIEW);
+    setQuery("");
+  }
+
   function clearDone() {
     setTodos((prev) => clearCompleted(prev));
   }
@@ -99,6 +106,7 @@ export default function TodoApp() {
         <FilterBar value={filter} onChange={setFilter} />
         <SortSelect value={sort} onChange={setSort} />
       </div>
+      <ResetViewButton visible={!isDefaultView({ filter, sort, query })} onReset={resetView} />
       <TodoList todos={visible} emptyMessage={emptyMessage(todos.length, filter, query)} onToggle={toggle} onEdit={edit} onDelete={remove} />
       <ItemsLeft total={stats.total} active={stats.active} />
       {lastDeleted && (
