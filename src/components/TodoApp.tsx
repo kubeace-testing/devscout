@@ -21,6 +21,7 @@ import { DEFAULT_VIEW } from "@/lib/viewStorage";
 import { mergeTodos } from "@/lib/transfer";
 import {
   clearCompleted,
+  clearCompletedLabel,
   countByPriority,
   createTodo,
   emptyMessage,
@@ -123,7 +124,7 @@ export default function TodoApp() {
           onClick={clearDone}
           className="text-sm text-red-600 hover:underline"
         >
-          Clear completed ({doneCount})
+          {clearCompletedLabel(doneCount)}
         </button>
       )}
       <ImportExport todos={todos} onImport={importTodos} />
