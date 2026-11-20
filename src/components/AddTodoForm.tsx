@@ -2,7 +2,7 @@
 
 import { useState, type Ref } from "react";
 import QuickDueButtons from "@/components/QuickDueButtons";
-import { PRIORITIES, type Priority } from "@/lib/todos";
+import { MAX_TODO_TEXT, PRIORITIES, type Priority } from "@/lib/todos";
 
 type Props = {
   onAdd: (text: string, priority: Priority, dueDate: string | null, notes: string) => void;
@@ -34,6 +34,7 @@ export default function AddTodoForm({ onAdd, inputRef }: Props) {
         onChange={(e) => setText(e.target.value)}
         placeholder="What needs to be done? (press n)"
         aria-label="New todo"
+        maxLength={MAX_TODO_TEXT}
         className="flex-1 rounded-md border border-gray-300 bg-transparent px-3 py-2 outline-none focus:border-blue-500"
       />
       <select

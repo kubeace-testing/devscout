@@ -2,6 +2,12 @@ export type Priority = "low" | "medium" | "high";
 
 export const PRIORITIES: readonly Priority[] = ["low", "medium", "high"];
 
+export const MAX_TODO_TEXT = 200;
+
+export function clampText(text: string): string {
+  return text.trim().slice(0, MAX_TODO_TEXT);
+}
+
 export type Todo = {
   id: string;
   text: string;
@@ -20,7 +26,7 @@ export function createTodo(
   const trimmedNotes = notes.trim();
   return {
     id: crypto.randomUUID(),
-    text: text.trim(),
+    text: clampText(text),
     completed: false,
     priority,
     dueDate,
@@ -55,7 +61,7 @@ export function clearCompleted(todos: Todo[]): Todo[] {
 }
 
 export function updateTodoText(todos: Todo[], id: string, text: string): Todo[] {
-  const trimmed = text.trim();
+  const trimmed = clampText(text);
   if (!trimmed) return todos;
   return todos.map((t) => (t.id === id ? { ...t, text: trimmed } : t));
 }
