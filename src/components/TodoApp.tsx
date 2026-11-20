@@ -41,6 +41,9 @@ export default function TodoApp() {
   const [sort, setSort] = useState<SortKey>("added");
   const [lastDeleted, setLastDeleted] = useState<DeletedTodo | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
+  const newTodoRef = useRef<HTMLInputElement>(null);
+  const focusNewTodo = useCallback(() => newTodoRef.current?.focus(), []);
+  useHotkey("n", focusNewTodo);
   const focusSearch = useCallback(() => searchRef.current?.focus(), []);
   useHotkey("/", focusSearch);
 
@@ -86,7 +89,7 @@ export default function TodoApp() {
 
   return (
     <div className="mt-8 space-y-4">
-      <AddTodoForm onAdd={addTodo} />
+      <AddTodoForm onAdd={addTodo} inputRef={newTodoRef} />
       <ProgressSummary stats={stats} />
       <PriorityBreakdown counts={countByPriority(todos)} />
       <SearchBox value={query} onChange={setQuery} inputRef={searchRef} />
