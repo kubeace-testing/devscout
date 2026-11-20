@@ -17,3 +17,8 @@ export type View = {
 export function selectVisibleTodos(todos: Todo[], view: View): Todo[] {
   return sortTodos(searchTodos(filterTodos(todos, view.filter), view.query), view.sort);
 }
+
+/** True when filter, sort and search are all at their defaults. */
+export function isDefaultView(view: View): boolean {
+  return view.filter === "all" && view.sort === "added" && view.query.trim() === "";
+}
