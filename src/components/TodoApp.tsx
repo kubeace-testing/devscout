@@ -2,6 +2,7 @@
 
 import { useCallback, useRef, useState } from "react";
 import { useHotkey } from "@/hooks/useHotkey";
+import { usePersistedView } from "@/hooks/usePersistedView";
 import { usePersistedTodos } from "@/hooks/usePersistedTodos";
 import SearchBox from "@/components/SearchBox";
 import PriorityBreakdown from "@/components/PriorityBreakdown";
@@ -36,9 +37,10 @@ import {
 
 export default function TodoApp() {
   const [todos, setTodos] = usePersistedTodos();
-  const [filter, setFilter] = useState<Filter>("all");
+  const [{ filter, sort }, setView] = usePersistedView();
+  const setFilter = (next: Filter) => setView((v) => ({ ...v, filter: next }));
+  const setSort = (next: SortKey) => setView((v) => ({ ...v, sort: next }));
   const [query, setQuery] = useState("");
-  const [sort, setSort] = useState<SortKey>("added");
   const [lastDeleted, setLastDeleted] = useState<DeletedTodo | null>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   const newTodoRef = useRef<HTMLInputElement>(null);
