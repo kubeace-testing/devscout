@@ -5,7 +5,7 @@ import QuickDueButtons from "@/components/QuickDueButtons";
 import { PRIORITIES, type Priority } from "@/lib/todos";
 
 type Props = {
-  onAdd: (text: string, priority: Priority, dueDate: string | null) => void;
+  onAdd: (text: string, priority: Priority, dueDate: string | null, notes: string) => void;
   inputRef?: Ref<HTMLInputElement>;
 };
 
@@ -13,13 +13,15 @@ export default function AddTodoForm({ onAdd, inputRef }: Props) {
   const [text, setText] = useState("");
   const [priority, setPriority] = useState<Priority>("medium");
   const [dueDate, setDueDate] = useState("");
+  const [notes, setNotes] = useState("");
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!text.trim()) return;
-    onAdd(text, priority, dueDate || null);
+    onAdd(text, priority, dueDate || null, notes);
     setText("");
     setDueDate("");
+    setNotes("");
   }
 
   return (
@@ -60,6 +62,14 @@ export default function AddTodoForm({ onAdd, inputRef }: Props) {
         Add
       </button>
     </form>
+    <input
+      type="text"
+      value={notes}
+      onChange={(e) => setNotes(e.target.value)}
+      placeholder="Notes (optional)"
+      aria-label="Notes"
+      className="w-full rounded-md border border-gray-300 bg-transparent px-3 py-1 text-sm outline-none focus:border-blue-500"
+    />
     <QuickDueButtons onPick={setDueDate} />
     </div>
   );

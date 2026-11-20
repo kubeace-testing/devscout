@@ -21,11 +21,14 @@ export default function TodoItem({ todo, onToggle, onEdit, onDelete }: Props) {
         onChange={() => onToggle(todo.id)}
         aria-label={`Mark "${todo.text}" as done`}
       />
-      <EditableText
-        value={todo.text}
-        onSave={(next) => onEdit(todo.id, next)}
-        className={`flex-1 ${todo.completed ? "line-through opacity-50" : ""}`}
-      />
+      <div className="min-w-0 flex-1">
+        <EditableText
+          value={todo.text}
+          onSave={(next) => onEdit(todo.id, next)}
+          className={todo.completed ? "line-through opacity-50" : ""}
+        />
+        {todo.notes && <p className="truncate text-xs opacity-60">{todo.notes}</p>}
+      </div>
       {todo.dueDate && (
         <span
           className={`text-xs ${

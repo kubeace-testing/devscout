@@ -8,19 +8,23 @@ export type Todo = {
   completed: boolean;
   priority: Priority;
   dueDate: string | null; // ISO date (YYYY-MM-DD)
+  notes?: string;
 };
 
 export function createTodo(
   text: string,
   priority: Priority = "medium",
   dueDate: string | null = null,
+  notes = "",
 ): Todo {
+  const trimmedNotes = notes.trim();
   return {
     id: crypto.randomUUID(),
     text: text.trim(),
     completed: false,
     priority,
     dueDate,
+    ...(trimmedNotes ? { notes: trimmedNotes } : {}),
   };
 }
 

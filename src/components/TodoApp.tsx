@@ -49,8 +49,8 @@ export default function TodoApp() {
   const focusSearch = useCallback(() => searchRef.current?.focus(), []);
   useHotkey("/", focusSearch);
 
-  function addTodo(text: string, priority: Priority, dueDate: string | null) {
-    setTodos((prev) => [...prev, createTodo(text, priority, dueDate)]);
+  function addTodo(text: string, priority: Priority, dueDate: string | null, notes: string) {
+    setTodos((prev) => [...prev, createTodo(text, priority, dueDate, notes)]);
   }
 
   function toggle(id: string) {
