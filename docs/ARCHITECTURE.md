@@ -10,6 +10,7 @@ The app is a single client-side Next.js page. All state lives in the browser.
 | View selection | `src/lib/select.ts` | Compose filter → search → sort into one call |
 | Persistence | `src/lib/storage.ts` | Validated load/save against any `Storage`-like object |
 | Import/export | `src/lib/transfer.ts` | JSON serialise, parse and merge |
+| CSV export | `src/lib/csv.ts` | Serialise todos to CSV with proper cell escaping |
 | Hooks | `src/hooks` | `usePersistedTodos`, `useHotkey` |
 | UI | `src/components` | Presentational components wired together in `TodoApp` |
 

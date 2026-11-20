@@ -6,8 +6,11 @@ repository for generating real pull-request activity.
 ## Features
 
 - Add todos with a priority (low / medium / high) and an optional due date
+- Quick due-date shortcuts: Today / Tomorrow / Next week
 - Overdue todos are highlighted
 - Mark done, edit in place (double-click), clear completed
+- Undo the last deleted todo
+- See open todos broken down by priority
 - Filter (all / active / completed) and search (press `/` to focus)
 - Persisted in `localStorage`
 - Export as JSON or CSV, import from JSON
