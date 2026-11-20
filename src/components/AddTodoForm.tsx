@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type Ref } from "react";
 import QuickDueButtons from "@/components/QuickDueButtons";
 import { PRIORITIES, type Priority } from "@/lib/todos";
 
 type Props = {
   onAdd: (text: string, priority: Priority, dueDate: string | null) => void;
+  inputRef?: Ref<HTMLInputElement>;
 };
 
-export default function AddTodoForm({ onAdd }: Props) {
+export default function AddTodoForm({ onAdd, inputRef }: Props) {
   const [text, setText] = useState("");
   const [priority, setPriority] = useState<Priority>("medium");
   const [dueDate, setDueDate] = useState("");
@@ -25,6 +26,7 @@ export default function AddTodoForm({ onAdd }: Props) {
     <div className="space-y-2">
     <form onSubmit={handleSubmit} className="flex gap-2">
       <input
+        ref={inputRef}
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
