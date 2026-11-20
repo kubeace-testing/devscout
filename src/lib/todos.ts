@@ -85,7 +85,9 @@ export function filterTodos(todos: Todo[], filter: Filter, today: Date = new Dat
 export function searchTodos(todos: Todo[], query: string): Todo[] {
   const q = query.trim().toLowerCase();
   if (!q) return todos;
-  return todos.filter((t) => t.text.toLowerCase().includes(q));
+  return todos.filter(
+    (t) => t.text.toLowerCase().includes(q) || (t.notes?.toLowerCase().includes(q) ?? false),
+  );
 }
 
 export function deleteTodo(todos: Todo[], id: string): Todo[] {
