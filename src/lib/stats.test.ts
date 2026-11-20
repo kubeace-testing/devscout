@@ -43,3 +43,9 @@ describe("emptyMessage", () => {
     expect(emptyMessage(3, "completed", "")).toMatch(/No completed/);
   });
 });
+
+describe("emptyMessage overdue", () => {
+  it("has a message for the overdue filter", () => {
+    expect(emptyMessage(3, "overdue", "")).toMatch(/Nothing is overdue/);
+  });
+});

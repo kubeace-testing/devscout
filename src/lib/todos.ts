@@ -132,6 +132,7 @@ export function emptyMessage(total: number, filter: Filter, query: string): stri
   if (query.trim()) return `No todos match "${query.trim()}".`;
   if (filter === "active") return "Nothing left to do. 🎉";
   if (filter === "completed") return "No completed todos yet.";
+  if (filter === "overdue") return "Nothing is overdue. 👍";
   return "No todos to show.";
 }
 
