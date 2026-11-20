@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import QuickDueButtons from "@/components/QuickDueButtons";
 import { PRIORITIES, type Priority } from "@/lib/todos";
 
 type Props = {
@@ -21,6 +22,7 @@ export default function AddTodoForm({ onAdd }: Props) {
   }
 
   return (
+    <div className="space-y-2">
     <form onSubmit={handleSubmit} className="flex gap-2">
       <input
         type="text"
@@ -56,5 +58,7 @@ export default function AddTodoForm({ onAdd }: Props) {
         Add
       </button>
     </form>
+    <QuickDueButtons onPick={setDueDate} />
+    </div>
   );
 }
