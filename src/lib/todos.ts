@@ -144,6 +144,7 @@ export function emptyMessage(total: number, filter: Filter, query: string): stri
   if (filter === "active") return "Nothing left to do. 🎉";
   if (filter === "completed") return "No completed todos yet.";
   if (filter === "overdue") return "Nothing is overdue. 👍";
+  if (filter === "today") return "Nothing due today.";
   return "No todos to show.";
 }
 
