@@ -23,6 +23,7 @@ repository for generating real pull-request activity.
 | `npm run lint` | ESLint |
 | `npm run typecheck` | TypeScript, no emit |
 | `npm test` | Vitest unit tests |
+| `npm run coverage` | Tests with a v8 coverage report for `src/lib` |
 | `npm run build` | Production build |
 
 ## Layout
