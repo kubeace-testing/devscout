@@ -146,3 +146,7 @@ export function countByPriority(todos: Todo[]): Record<Priority, number> {
   }
   return counts;
 }
+
+export function addDaysISO(days: number, from: Date = new Date()): string {
+  return toLocalISODate(new Date(from.getFullYear(), from.getMonth(), from.getDate() + days));
+}
