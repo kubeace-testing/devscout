@@ -46,6 +46,10 @@ export function isOverdue(todo: Todo, today: Date = new Date()): boolean {
   return todo.dueDate < toLocalISODate(today);
 }
 
+export function isDueToday(todo: Todo, today: Date = new Date()): boolean {
+  return !todo.completed && todo.dueDate === toLocalISODate(today);
+}
+
 export function isDueSoon(todo: Todo, today: Date = new Date(), days = 2): boolean {
   if (!todo.dueDate || todo.completed || isOverdue(todo, today)) return false;
   const limit = new Date(today.getFullYear(), today.getMonth(), today.getDate() + days);
@@ -66,11 +70,12 @@ export function updateTodoText(todos: Todo[], id: string, text: string): Todo[] 
   return todos.map((t) => (t.id === id ? { ...t, text: trimmed } : t));
 }
 
-export type Filter = "all" | "active" | "completed" | "overdue";
+export type Filter = "all" | "active" | "completed" | "overdue" | "today";
 
-export const FILTERS: readonly Filter[] = ["all", "active", "completed", "overdue"];
+export const FILTERS: readonly Filter[] = ["all", "active", "completed", "overdue", "today"];
 
 export function filterTodos(todos: Todo[], filter: Filter, today: Date = new Date()): Todo[] {
+  if (filter === "today") return todos.filter((t) => isDueToday(t, today));
   if (filter === "overdue") return todos.filter((t) => isOverdue(t, today));
   if (filter === "active") return todos.filter((t) => !t.completed);
   if (filter === "completed") return todos.filter((t) => t.completed);
