@@ -145,6 +145,7 @@ export type Stats = {
   completed: number;
   active: number;
   overdue: number;
+  dueToday: number;
   dueSoon: number;
   percentDone: number;
 };
@@ -157,6 +158,7 @@ export function getStats(todos: Todo[], today: Date = new Date()): Stats {
     completed,
     active: total - completed,
     overdue: todos.filter((t) => isOverdue(t, today)).length,
+    dueToday: todos.filter((t) => isDueToday(t, today)).length,
     dueSoon: todos.filter((t) => isDueSoon(t, today)).length,
     percentDone: total === 0 ? 0 : Math.round((completed / total) * 100),
   };
