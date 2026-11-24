@@ -9,6 +9,9 @@ export default function ProgressSummary({ stats }: { stats: Stats }) {
         <span>
           {stats.completed} of {stats.total} done
         </span>
+        {stats.dueToday > 0 && (
+          <span className="font-medium text-blue-600">{stats.dueToday} due today</span>
+        )}
         {stats.dueSoon > 0 && (
           <span className="font-medium text-amber-600">{stats.dueSoon} due soon</span>
         )}

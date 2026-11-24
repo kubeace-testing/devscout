@@ -10,6 +10,7 @@ describe("getStats", () => {
       completed: 0,
       active: 0,
       overdue: 0,
+      dueToday: 0,
       dueSoon: 0,
       percentDone: 0,
     });
@@ -27,6 +28,7 @@ describe("getStats", () => {
       completed: 1,
       active: 3,
       overdue: 1,
+      dueToday: 0,
       dueSoon: 0,
       percentDone: 25,
     });
@@ -47,5 +49,18 @@ describe("emptyMessage", () => {
 describe("emptyMessage overdue", () => {
   it("has a message for the overdue filter", () => {
     expect(emptyMessage(3, "overdue", "")).toMatch(/Nothing is overdue/);
+  });
+});
+
+describe("getStats dueToday", () => {
+  const today = new Date(2026, 5, 15, 12, 0);
+
+  it("counts only active todos due today", () => {
+    const todos = [
+      createTodo("a", "low", "2026-06-15"),
+      { ...createTodo("b", "low", "2026-06-15"), completed: true },
+      createTodo("c", "low", "2026-06-16"),
+    ];
+    expect(getStats(todos, today).dueToday).toBe(1);
   });
 });
