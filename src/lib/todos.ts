@@ -1,3 +1,5 @@
+import { pluralize } from "@/lib/plural";
+
 export type Priority = "low" | "medium" | "high";
 
 export const PRIORITIES: readonly Priority[] = ["low", "medium", "high"];
@@ -68,7 +70,7 @@ export function dueLabel(todo: Todo, today: Date = new Date()): string {
   const days = daysUntilDue(todo, today);
   if (days === null) return "";
   if (todo.completed) return `Due ${todo.dueDate}`;
-  const plural = (n: number) => `${n} ${n === 1 ? "day" : "days"}`;
+  const plural = (n: number) => pluralize(n, "day");
   if (days < 0) return `Overdue by ${plural(-days)}`;
   if (days === 0) return "Due today";
   if (days === 1) return "Due tomorrow";
@@ -176,7 +178,7 @@ export function setAllCompleted(todos: Todo[], completed: boolean): Todo[] {
 
 export function itemsLeftLabel(active: number): string {
   if (active === 0) return "All done";
-  return `${active} ${active === 1 ? "item" : "items"} left`;
+  return `${pluralize(active, "item")} left`;
 }
 
 export function clearCompletedLabel(completed: number): string {
