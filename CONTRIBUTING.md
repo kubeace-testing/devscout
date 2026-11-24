@@ -27,3 +27,7 @@ While developing, `npm run test:watch` re-runs the affected tests on every save.
 4. Open a PR using the template and merge once checks pass.
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for how the code is organised.
+
+## Helpers
+
+Use `pluralize(count, singular, plural?)` from `src/lib/plural.ts` for count labels instead of inline ternaries.
