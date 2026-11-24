@@ -8,11 +8,12 @@ repository for generating real pull-request activity.
 - Todo text is limited to 200 characters
 - Add todos with a priority (low / medium / high) and an optional due date
 - Quick due-date shortcuts: Today / Tomorrow / Next week
-- Overdue todos are highlighted
+- Overdue todos are highlighted, and due dates read as relative labels ("Due tomorrow")
+- A progress summary shows done count plus due today, due soon and overdue badges
 - Mark done, edit in place (double-click), clear completed
 - Undo the last deleted todo
 - See open todos broken down by priority
-- Filter (all / active / completed / overdue) and search (press `/` to focus search, `n` for a new todo)
+- Filter (all / active / completed / overdue / today) and search (press `/` to focus search, `n` for a new todo)
 - Persisted in `localStorage`
 - Export as JSON or CSV, import from JSON
 
