@@ -131,9 +131,9 @@ export function sortTodos(todos: Todo[], key: SortKey): Todo[] {
   if (key === "alpha") {
     return copy.sort((a, b) => a.text.localeCompare(b.text));
   }
-  // due: earliest first, todos without a date last
+  // due: earliest first (ties by priority), todos without a date last
   return copy.sort((a, b) => {
-    if (a.dueDate === b.dueDate) return 0;
+    if (a.dueDate === b.dueDate) return PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority];
     if (a.dueDate === null) return 1;
     if (b.dueDate === null) return -1;
     return a.dueDate < b.dueDate ? -1 : 1;
