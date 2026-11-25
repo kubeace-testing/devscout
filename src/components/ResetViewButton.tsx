@@ -1,3 +1,5 @@
+import { confirmReset } from "@/lib/resetConfirm";
+
 type Props = {
   visible: boolean;
   onReset: () => void;
@@ -8,7 +10,9 @@ export default function ResetViewButton({ visible, onReset }: Props) {
   return (
     <button
       type="button"
-      onClick={onReset}
+      onClick={() => {
+        if (confirmReset()) onReset();
+      }}
       className="text-sm text-blue-600 hover:underline"
     >
       Reset filters
