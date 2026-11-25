@@ -5,6 +5,7 @@ import { useHotkey } from "@/hooks/useHotkey";
 import { usePersistedView } from "@/hooks/usePersistedView";
 import { usePersistedTodos } from "@/hooks/usePersistedTodos";
 import ResetViewButton from "@/components/ResetViewButton";
+import ShortcutsHelp from "@/components/ShortcutsHelp";
 import SearchBox from "@/components/SearchBox";
 import PriorityBreakdown from "@/components/PriorityBreakdown";
 import UndoBar from "@/components/UndoBar";
@@ -128,6 +129,7 @@ export default function TodoApp() {
         </button>
       )}
       <ImportExport todos={todos} onImport={importTodos} />
+      <ShortcutsHelp />
     </div>
   );
 }
