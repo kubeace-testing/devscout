@@ -17,6 +17,19 @@ repository for generating real pull-request activity.
 - Persisted in `localStorage`
 - Export as JSON or CSV, import from JSON
 
+## CSV format
+
+Export produces a header row followed by one row per todo:
+
+| Column | Values |
+|---|---|
+| `text` | The todo text. Quoted when it contains commas, quotes or newlines (quotes are doubled). |
+| `completed` | `true` or `false` |
+| `priority` | `low`, `medium` or `high` |
+| `dueDate` | `YYYY-MM-DD`, or empty |
+
+CSV is export-only; import accepts JSON.
+
 ## Scripts
 
 | Command | What it does |
