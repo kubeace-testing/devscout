@@ -31,3 +31,7 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for how the code is organised.
 ## Helpers
 
 Use `pluralize(count, singular, plural?)` from `src/lib/plural.ts` for count labels instead of inline ternaries.
+
+## Tickets
+
+Put the Jira key (for example `SCRUM-12`) in the branch name, the PR title and the description so DevGlimpse links the PR to its ticket.
