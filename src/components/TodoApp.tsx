@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useHotkey } from "@/hooks/useHotkey";
 import { usePersistedView } from "@/hooks/usePersistedView";
 import { usePersistedTodos } from "@/hooks/usePersistedTodos";
@@ -17,6 +17,7 @@ import SortSelect from "@/components/SortSelect";
 import FilterBar from "@/components/FilterBar";
 import AddTodoForm from "@/components/AddTodoForm";
 import TodoList from "@/components/TodoList";
+import { titleWithOverdue } from "@/lib/pageTitle";
 import { isDefaultView, selectVisibleTodos } from "@/lib/select";
 import { DEFAULT_VIEW } from "@/lib/viewStorage";
 import { mergeTodos } from "@/lib/transfer";
@@ -96,6 +97,9 @@ export default function TodoApp() {
 
   const stats = getStats(todos);
   const doneCount = stats.completed;
+  useEffect(() => {
+    document.title = titleWithOverdue(stats.overdue);
+  }, [stats.overdue]);
   const visible = selectVisibleTodos(todos, { filter, query, sort });
 
   return (
