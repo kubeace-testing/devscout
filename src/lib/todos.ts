@@ -194,6 +194,13 @@ export function progressMessage(stats: Stats): string {
   return "";
 }
 
+/** Keep active high-priority todos first, preserving relative order. */
+export function pinHighPriority(todos: Todo[]): Todo[] {
+  const pinned = todos.filter((t) => !t.completed && t.priority === "high");
+  const rest = todos.filter((t) => t.completed || t.priority !== "high");
+  return [...pinned, ...rest];
+}
+
 export function countByPriority(todos: Todo[]): Record<Priority, number> {
   const counts: Record<Priority, number> = { low: 0, medium: 0, high: 0 };
   for (const t of todos) {
