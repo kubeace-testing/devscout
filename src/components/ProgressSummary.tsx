@@ -1,4 +1,4 @@
-import type { Stats } from "@/lib/todos";
+import { progressMessage, type Stats } from "@/lib/todos";
 
 export default function ProgressSummary({ stats }: { stats: Stats }) {
   if (stats.total === 0) return null;
@@ -19,6 +19,9 @@ export default function ProgressSummary({ stats }: { stats: Stats }) {
           <span className="font-medium text-red-600">{stats.overdue} overdue</span>
         )}
       </div>
+      {progressMessage(stats) && (
+        <p className="text-xs text-gray-600">{progressMessage(stats)}</p>
+      )}
       <div
         role="progressbar"
         aria-valuemin={0}

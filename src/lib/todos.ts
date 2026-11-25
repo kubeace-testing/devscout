@@ -187,6 +187,13 @@ export function clearCompletedLabel(completed: number): string {
   return `Clear completed (${completed})`;
 }
 
+export function progressMessage(stats: Stats): string {
+  if (stats.total === 0) return "";
+  if (stats.percentDone === 100) return "All done. Nice work!";
+  if (stats.percentDone >= 50) return "More than halfway there.";
+  return "";
+}
+
 export function countByPriority(todos: Todo[]): Record<Priority, number> {
   const counts: Record<Priority, number> = { low: 0, medium: 0, high: 0 };
   for (const t of todos) {
