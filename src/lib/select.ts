@@ -27,3 +27,8 @@ export function isDefaultView(view: View): boolean {
 export function visibleCount(todos: Todo[], view: View): number {
   return selectVisibleTodos(todos, view).length;
 }
+
+/** How many todos are completed. */
+export function completedCount(todos: Todo[]): number {
+  return todos.filter((t) => t.completed).length;
+}
