@@ -226,3 +226,8 @@ export function restoreTodo(todos: Todo[], deleted: DeletedTodo): Todo[] {
   const at = Math.min(deleted.index, todos.length);
   return [...todos.slice(0, at), deleted.todo, ...todos.slice(at)];
 }
+
+/** Keep active todos first and completed todos last, preserving relative order. */
+export function completedLast(todos: Todo[]): Todo[] {
+  return [...todos.filter((t) => !t.completed), ...todos.filter((t) => t.completed)];
+}
