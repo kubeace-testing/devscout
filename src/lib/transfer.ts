@@ -1,3 +1,4 @@
+import { isValidISODate } from "@/lib/dueDate";
 import { isTodo } from "@/lib/storage";
 import type { Todo } from "@/lib/todos";
 
@@ -22,11 +23,13 @@ export function parseTodos(json: string): ParseResult {
     return { ok: false, error: "No todo list found in the file." };
   }
   const seen = new Set<string>();
-  const todos = list.filter((t): t is Todo => {
-    if (!isTodo(t) || seen.has(t.id)) return false;
-    seen.add(t.id);
-    return true;
-  });
+  const todos = list
+    .filter((t): t is Todo => {
+      if (!isTodo(t) || seen.has(t.id)) return false;
+      seen.add(t.id);
+      return true;
+    })
+    .map((t) => (t.dueDate !== null && !isValidISODate(t.dueDate) ? { ...t, dueDate: null } : t));
   return { ok: true, todos, skipped: list.length - todos.length };
 }
 
