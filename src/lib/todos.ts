@@ -231,3 +231,11 @@ export function restoreTodo(todos: Todo[], deleted: DeletedTodo): Todo[] {
 export function completedLast(todos: Todo[]): Todo[] {
   return [...todos.filter((t) => !t.completed), ...todos.filter((t) => t.completed)];
 }
+
+/** Insert an active copy of a todo right after the original. Unknown id leaves the list unchanged. */
+export function duplicateTodo(todos: Todo[], id: string): Todo[] {
+  const index = todos.findIndex((t) => t.id === id);
+  if (index === -1) return todos;
+  const copy: Todo = { ...todos[index], id: crypto.randomUUID(), completed: false };
+  return [...todos.slice(0, index + 1), copy, ...todos.slice(index + 1)];
+}
