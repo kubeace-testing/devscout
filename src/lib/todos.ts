@@ -239,3 +239,9 @@ export function duplicateTodo(todos: Todo[], id: string): Todo[] {
   const copy: Todo = { ...todos[index], id: crypto.randomUUID(), completed: false };
   return [...todos.slice(0, index + 1), copy, ...todos.slice(index + 1)];
 }
+
+/** Move the due date of every active overdue todo to today. */
+export function rescheduleOverdue(todos: Todo[], today: Date = new Date()): Todo[] {
+  const iso = toLocalISODate(today);
+  return todos.map((t) => (isOverdue(t, today) ? { ...t, dueDate: iso } : t));
+}
