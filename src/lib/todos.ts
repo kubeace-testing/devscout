@@ -245,3 +245,10 @@ export function rescheduleOverdue(todos: Todo[], today: Date = new Date()): Todo
   const iso = toLocalISODate(today);
   return todos.map((t) => (isOverdue(t, today) ? { ...t, dueDate: iso } : t));
 }
+
+/** The active todo that has been overdue the longest, or null when nothing is overdue. */
+export function oldestOverdue(todos: Todo[], today: Date = new Date()): Todo | null {
+  const overdue = todos.filter((t) => isOverdue(t, today));
+  if (overdue.length === 0) return null;
+  return overdue.reduce((oldest, t) => ((t.dueDate as string) < (oldest.dueDate as string) ? t : oldest));
+}
