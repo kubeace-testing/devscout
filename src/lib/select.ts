@@ -22,3 +22,8 @@ export function selectVisibleTodos(todos: Todo[], view: View): Todo[] {
 export function isDefaultView(view: View): boolean {
   return view.filter === "all" && view.sort === "added" && view.query.trim() === "";
 }
+
+/** How many todos the current view shows. */
+export function visibleCount(todos: Todo[], view: View): number {
+  return selectVisibleTodos(todos, view).length;
+}
