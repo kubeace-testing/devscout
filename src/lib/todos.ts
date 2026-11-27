@@ -252,3 +252,12 @@ export function oldestOverdue(todos: Todo[], today: Date = new Date()): Todo | n
   if (overdue.length === 0) return null;
   return overdue.reduce((oldest, t) => ((t.dueDate as string) < (oldest.dueDate as string) ? t : oldest));
 }
+
+/** Count active overdue todos per priority. */
+export function overdueByPriority(todos: Todo[], today: Date = new Date()): Record<Priority, number> {
+  const counts: Record<Priority, number> = { low: 0, medium: 0, high: 0 };
+  for (const t of todos) {
+    if (isOverdue(t, today)) counts[t.priority] += 1;
+  }
+  return counts;
+}
